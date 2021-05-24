@@ -1,12 +1,21 @@
-from flask import Flask
+from flask import Flask, Response
+from datetime import datetime
+from models import GeneratedUUID
+import pytz
+import uuid
+import json
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
-    return 'Hello World!'
+def fetch_uuids():
+    timestamp = str(datetime.now(tz=pytz.utc))
+    uuid_str = str(uuid.uuid4())
+    GeneratedUUID(timestamp=timestamp, uuid=uuid_str).create()
+    uuids = GeneratedUUID.fetch_all()
+    return Response(json.dumps(uuids), mimetype='application/json')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5002)
