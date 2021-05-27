@@ -7,4 +7,10 @@ Steps to get running
     $ pip install -r requirements.txt
 * run app
     $ python app.py
+    
+ 
+ ROUTES
+ ------
+ 
+ GET  localhost:5001/
 
